@@ -4,4 +4,4 @@ def remove_char_at(str, n):
     for i, c in enumerate(str):
         if i != n:
             newstr += c
-        return new_string
+    return new_string
