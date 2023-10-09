@@ -1,11 +1,11 @@
 #include <Python.h>
 
 /**
- * print_python_list - prints basic info about python lists
+ * print_python_list_info - prints basic info about python lists
  * @p: a Pyobject list
 */
 
-void print_python_list(PyObject *p)
+void print_python_list_info(PyObject *p)
 {
     int size, alloc, i;
     PyObject *obj;
