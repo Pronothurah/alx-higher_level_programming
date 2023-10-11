@@ -10,13 +10,8 @@ def roman_to_int(roman_string):
     prev_value = 0
 
     for char in reversed(roman_string):
-        value = roman_values.get(char, 0)
+        prev_value = roman_values[char]
 
-        if value < prev_value:
-            result -= value
-        else:
-            result += value
-
-        prev_value = value
+        result += prev_value if result < prev_value * 5 else -prev_value
 
     return result
