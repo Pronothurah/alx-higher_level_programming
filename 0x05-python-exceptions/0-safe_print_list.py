@@ -12,7 +12,7 @@ def safe_print_list(my_list=[], x=0):
     result = 0
     try:
         for i in range(x):
-            print(my_list[i], end='')
+            print(my_list[i], end=' ')
             result += 1
     except IndexError:
         None
