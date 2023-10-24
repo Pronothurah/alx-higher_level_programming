@@ -37,7 +37,7 @@ class Square:
         Returns: Size squared
         """
         return self.__size ** 2
-    
+
     def my_print(self):
         """Prints square with input size"""
         for i in range(self.size):
