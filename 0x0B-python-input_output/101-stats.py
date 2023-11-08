@@ -19,12 +19,14 @@ status_codes = {
 i = 0
 total_size = i
 
+
 def print_metrics():
     """prints the data"""
     print(f"File size: {total_size}")
     for key, value in sorted(status_codes.items()):
         if value > 0:
             print("{:s}: {:d}".format(key, value))
+
 
 try:
     for line in stdin:
@@ -34,7 +36,7 @@ try:
             total_size += int(split_line[-1])
             if status in status_codes:
                 status_codes[status] += 1
-        
+
         i += 1
 
         if (i % 10) == 0:
