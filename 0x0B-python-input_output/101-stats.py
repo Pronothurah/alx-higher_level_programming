@@ -24,7 +24,7 @@ def print_metrics():
     print(f"File size: {total_size}")
     for key, value in sorted(status_codes.items()):
         if value > 0:
-            print("{:s} {:d}".format(key, value))
+            print("{:s}: {:d}".format(key, value))
 
 try:
     for line in stdin:
