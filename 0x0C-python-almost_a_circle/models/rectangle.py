@@ -4,7 +4,7 @@ from models.base import Base
 
 
 class Rectangle(Base):
-    """A rectangle in class"""
+    """A rectangle class"""
     def __init__(self, width, height, x=0, y=0, id=None):
         """constructor"""
         super().__init__(id)
@@ -16,6 +16,7 @@ class Rectangle(Base):
     @property
     def width(self):
         """width of rectangle"""
+
         return self.__width
 
     @width.setter
@@ -26,6 +27,7 @@ class Rectangle(Base):
     @property
     def height(self):
         """height of rectangle"""
+
         return self.__height
 
     @height.setter
@@ -36,6 +38,7 @@ class Rectangle(Base):
     @property
     def y(self):
         """y of rectangle"""
+
         return self.__y
 
     @y.setter
@@ -46,6 +49,7 @@ class Rectangle(Base):
     @property
     def x(self):
         """x of rectangle"""
+
         return self.__x
 
     @x.setter
@@ -56,6 +60,7 @@ class Rectangle(Base):
     def validate_integer(self, name, value, eq=True):
         """
         Method for validating all setter methods and instantiation
+
         """
         if not isinstance(value, int):
             raise TypeError("{} must be an integer".format(name))
@@ -66,12 +71,14 @@ class Rectangle(Base):
 
     def area(self):
         """Computes area of rectangle"""
+
         return self.__height * self.__width
 
     def display(self):
         """
         Display the rectangle based on width, height, x and y and character #
         """
+
         for _ in range(self.y):
             print("")
         for _ in range(self.height):
@@ -85,6 +92,7 @@ class Rectangle(Base):
         """
         returns string info about the rectangle
         """
+
         return '[{}] ({}) {}/{} - {}/{}'.format(
             type(self).__name__,
             self.id,
@@ -98,6 +106,7 @@ class Rectangle(Base):
         Update the rectangle attributes based on
         *args (non-keyword arguments) or **kwargs (keyword arguments)
         """
+        
         if (args is not None and len(args) > 0):
             i = 0
             attributes = ["id", "width", "height", "x", "y"]
