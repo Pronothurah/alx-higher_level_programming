@@ -106,7 +106,7 @@ class Rectangle(Base):
         Update the rectangle attributes based on
         *args (non-keyword arguments) or **kwargs (keyword arguments)
         """
-        
+
         if (args is not None and len(args) > 0):
             i = 0
             attributes = ["id", "width", "height", "x", "y"]
@@ -119,3 +119,13 @@ class Rectangle(Base):
         else:
             for k, v in kargs.items():
                 setattr(self, k, v)
+
+    def to_dictionary(self):
+        """
+        Convert class to dictionnary
+        """
+        attributes = ["id", "width", "height", "x", "y"]
+        response = {}
+        for attr in attributes:
+            response[attr] = getattr(self, attr)
+        return response

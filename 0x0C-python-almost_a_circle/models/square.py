@@ -52,3 +52,13 @@ class Square(Rectangle):
         else:
             for k, v in kargs.items():
                 setattr(self, k, v)
+
+    def to_dictionary(self):
+        """
+        Convert class to dictionnary
+        """
+        attributes = ["id", "size", "x", "y"]
+        response = {}
+        for attr in attributes:
+            response[attr] = getattr(self, attr)
+        return response
