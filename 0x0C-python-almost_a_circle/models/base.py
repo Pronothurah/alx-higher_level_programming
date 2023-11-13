@@ -140,5 +140,3 @@ class Base:
     #     for i in list_rectangles + list_squares:
     #         t.Turtle.turtle()
     #         t.colo
-        
-        
