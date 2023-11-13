@@ -62,12 +62,12 @@ class Rectangle(Base):
         Method for validating all setter methods and instantiation
 
         """
-        if not isinstance(value, int):
-            raise TypeError("{} must be an integer".format(name))
         if eq and value < 0:
             raise ValueError("{} must be >= 0".format(name))
         elif not eq and value <= 0:
             raise ValueError("{} must be > 0".format(name))
+        elif not isinstance(value, int):
+            raise TypeError("{} must be an integer".format(name))
 
     def area(self):
         """Computes area of rectangle"""
