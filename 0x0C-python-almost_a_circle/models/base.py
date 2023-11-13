@@ -2,6 +2,7 @@
 """Module for Base class"""
 from json import dumps, loads
 import csv
+# import turtle
 
 
 class Base:
@@ -123,3 +124,21 @@ class Base:
                 result.append(cls.create(**d))
 
         return result
+
+    # @staticmethod
+    # def draw(list_rectangles, list_squares):
+    #     """
+    #     Draw rectangle or square from turtle module
+
+    #     Args:
+    #         list_rectangles: list of rectangles instances
+    #         list_squares: list of squares instance
+    #     """
+    #     import time
+    #     from random import randrange
+    #     turtle.Screen.colormode(255)
+    #     for i in list_rectangles + list_squares:
+    #         t.Turtle.turtle()
+    #         t.colo
+        
+        
