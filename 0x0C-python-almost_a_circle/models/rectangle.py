@@ -54,7 +54,9 @@ class Rectangle(Base):
         self.__x = value
 
     def validate_integer(self, name, value, eq=True):
-        """Method for validating all setter methods and instantiation"""
+        """
+        Method for validating all setter methods and instantiation
+        """
         if not isinstance(value, int):
             raise TypeError("{} must be an integer".format(name))
         if eq and value < 0:
@@ -65,9 +67,11 @@ class Rectangle(Base):
     def area(self):
         """Computes area of rectangle"""
         return self.__height * self.__width
-    
+
     def display(self):
-        """Display the rectangle based on width, height, x and y and character #"""
+        """
+        Display the rectangle based on width, height, x and y and character #
+        """
         for _ in range(self.y):
             print("")
         for _ in range(self.height):
@@ -76,9 +80,11 @@ class Rectangle(Base):
             for _ in range(self.width):
                 print("#", end="")
             print("")
-    
+
     def __str__(self):
-        """returns string info about the rectangle"""
+        """
+        returns string info about the rectangle
+        """
         return '[{}] ({}) {}/{} - {}/{}'.format(
             type(self).__name__,
             self.id,
@@ -86,4 +92,21 @@ class Rectangle(Base):
             self.y,
             self.width,
             self.height)
-    
+
+    def update(self, *args, **kargs):
+        """
+        Update the rectangle attributes based on
+        *args (non-keyword arguments) or **kwargs (keyword arguments)
+        """
+        if (args is not None and len(args) > 0):
+            i = 0
+            attributes = ["id", "width", "height", "x", "y"]
+            for arg in args:
+                try:
+                    setattr(self, attributes[i], arg)
+                    i += 1
+                except IndexError:
+                    pass
+        else:
+            for k, v in kargs.items():
+                setattr(self, k, v)
