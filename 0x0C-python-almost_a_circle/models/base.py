@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Module for Base class"""
 from json import dumps, loads
+import csv
 
 
 class Base:
@@ -49,6 +50,27 @@ class Base:
             a_file.write(cls.to_json_string(list_objs))
 
     @classmethod
+    def save_to_file_csv(cls, list_objs):
+        """
+        Save a list of objects to a file as csv representation
+        """
+        items = []
+        name = "{}.csv".format(cls.__name__)
+        if (list_objs is not None):
+            for item in list_objs:
+                temp = []
+                for _, j in item.to_dictionary().items():
+                    temp.append(str(j))
+                items.append(",".join(temp))
+
+        with open(file=name, mode="w", encoding="utf-8") as file:
+            if (len(items) == 0):
+                file.write("[]")
+            else:
+                for item in items:
+                    print(item, file=file)
+
+    @classmethod
     def create(cls, **dictionary):
         """
         Create a new instance from a dictionary
@@ -71,10 +93,33 @@ class Base:
     def load_from_file(cls):
         """returns a list of instances from file; unjsonfies"""
         from os import path
-        
+
         file = "{}.json".format(cls.__name__)
         if not path.isfile(file):
             return []
         with open(file, 'r', encoding='utf-8') as a_file:
             return [cls.create(**d) for d
                     in cls.from_json_string(a_file.read())]
+
+    @classmethod
+    def load_from_file_csv(cls):
+        """serializes and deserializes in CSV"""
+        from models.rectangle import Rectangle
+        from models.square import Square
+
+        result = []
+        file = "{}.csv".format(cls.__name__)
+
+        with open(file, 'r', newline='', encoding='utf-8') as f:
+            reader = csv.reader(f)
+            for row in reader:
+                row = [int(r) for r in row]
+                if cls is Rectangle:
+                    d = {'id': row[0], 'width': row[1], 'height': row[2],
+                         'x': row[3], 'y': row[4]}
+                else:
+                    d = {'id': row[0], 'size': row[1],
+                         'x': row[2], 'y': row[3]}
+                result.append(cls.create(**d))
+
+        return result
