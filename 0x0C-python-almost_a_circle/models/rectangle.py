@@ -10,8 +10,8 @@ class Rectangle(Base):
         super().__init__(id)
         self.width = width
         self.height = height
-        self.y = y
         self.x = x
+        self.y = y
 
     @property
     def width(self):
@@ -36,17 +36,6 @@ class Rectangle(Base):
         self.__height = value
 
     @property
-    def y(self):
-        """y of rectangle"""
-
-        return self.__y
-
-    @y.setter
-    def y(self, value):
-        self.validate_integer("y", value)
-        self.__y = value
-
-    @property
     def x(self):
         """x of rectangle"""
 
@@ -57,16 +46,27 @@ class Rectangle(Base):
         self.validate_integer("x", value)
         self.__x = value
 
-    def validate_integer(self, name, value, eq=True):
+    @property
+    def y(self):
+        """y of rectangle"""
+
+        return self.__y
+
+    @y.setter
+    def y(self, value):
+        self.validate_integer("y", value)
+        self.__y = value
+
+    def validate_integer(self, name, value, positive=True):
         """
         Method for validating all setter methods and instantiation
 
         """
-        if not isinstance(value, int):
+        if not isinstance(value, int) or isinstance(value, bool):
             raise TypeError("{} must be an integer".format(name))
-        if eq and value < 0:
+        if positive and value < 0:
             raise ValueError("{} must be >= 0".format(name))
-        elif not eq and value <= 0:
+        elif not positive and value <= 0:
             raise ValueError("{} must be > 0".format(name))
 
     def area(self):

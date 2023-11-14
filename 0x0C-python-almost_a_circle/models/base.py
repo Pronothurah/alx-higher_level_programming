@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Module for Base class"""
 from json import dumps, loads
-import csv
 # import turtle
 
 
@@ -105,25 +104,28 @@ class Base:
     @classmethod
     def load_from_file_csv(cls):
         """serializes and deserializes in CSV"""
-        from models.rectangle import Rectangle
-        from models.square import Square
-
-        result = []
-        file = "{}.csv".format(cls.__name__)
-
-        with open(file, 'r', newline='', encoding='utf-8') as f:
-            reader = csv.reader(f)
-            for row in reader:
-                row = [int(r) for r in row]
-                if cls is Rectangle:
-                    d = {'id': row[0], 'width': row[1], 'height': row[2],
-                         'x': row[3], 'y': row[4]}
+        name = "{}.csv".format(cls.__name__)
+        data = ""
+        attrs = []
+        results = []
+        try:
+            with open(file=name, encoding="utf-8") as file:
+                data = file.readlines()
+            for i in data:
+                temp = i.split(",")
+                if len(temp) == 4:
+                    attrs = ["id", "size", "x", "y"]
                 else:
-                    d = {'id': row[0], 'size': row[1],
-                         'x': row[2], 'y': row[3]}
-                result.append(cls.create(**d))
-
-        return result
+                    attrs = ["id", "width", "height", "x", "y"]
+                j = 0
+                response = {}
+                for k in i.split(","):
+                    response[attrs[j]] = int(k)
+                    j += 1
+                results.append(response)
+            return [cls.create(**result) for result in results]
+        except FileNotFoundError:
+            return ([])
 
     # @staticmethod
     # def draw(list_rectangles, list_squares):
