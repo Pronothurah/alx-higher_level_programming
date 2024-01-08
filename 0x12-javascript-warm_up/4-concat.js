@@ -1,7 +1,5 @@
 #!/usr/bin/node
-
 const [firstArgument, secondArgument] = process.argv.slice(2);
-
 if (!firstArgument && !secondArgument)
 {
     console.log('undefined is undefined');
