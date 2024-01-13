@@ -1,25 +1,28 @@
 #!/usr/bin/python3
-"""Script that  lists all states with a name starting
-with N (upper N) from the database"""
+"""
+This module is about listing all states with a name starting
+with N (upper N) from the database hbtn_0e_0_usa
+"""
 import sys
 import MySQLdb
 
-
 if __name__ == "__main__":
-    if len(sys.argv) >= 4:
-        db_connection = MySQLdb.connect(
-            host='localhost',
-            port=3306,
-            user=sys.argv[1],
-            passwd=sys.argv[2],
-            db=sys.argv[3]
-        )
-        cursor = db_connection.cursor()
-        cursor.execute(
-            'SELECT * FROM states WHERE name IS NOT NULL AND' +
-            ' LEFT(CAST(name AS BINARY), 1) = "N" ORDER BY states.id ASC;'
-        )
-        results = cursor.fetchall()
-        for result in results:
-            print(result)
-        db_connection.close()
+    args = sys.argv[1:]
+    db = MySQLdb.connect(
+        host="localhost",
+        port=3306,
+        user=args[0],
+        password=args[1],
+        database=args[2]
+    )
+    cur = db.cursor()
+    query = """
+    SELECT * FROM states
+    WHERE BINARY `name`='{query}'
+    ORDER BY id ASC
+    """
+    cur.execute(query.format(query=args[3]))
+    for data in cur.fetchall():
+        print(data)
+    cur.close()
+    db.close()
