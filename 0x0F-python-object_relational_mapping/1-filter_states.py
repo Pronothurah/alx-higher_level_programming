@@ -15,11 +15,10 @@ if __name__ == "__main__":
             db=sys.argv[3]
         )
         cursor = db_connection.cursor()
-        query = (
+        cursor.execute(
             'SELECT * FROM states WHERE name IS NOT NULL AND' +
             ' LEFT(CAST(name AS BINARY), 1) = "N" ORDER BY states.id ASC;'
         )
-        cursor.execute(query)
         results = cursor.fetchall()
         for result in results:
             print(result)
