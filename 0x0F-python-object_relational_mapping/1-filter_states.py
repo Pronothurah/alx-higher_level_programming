@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Script that  lists all states with a name starting with N (upper N) from the database"""
+"""Script that  lists all states with a name starting
+with N (upper N) from the database"""
 import sys
 import MySQLdb
 
@@ -14,7 +15,11 @@ if __name__ == "__main__":
             db=sys.argv[3]
         )
         cursor = db_connection.cursor()
-        cursor.execute('SELECT * FROM states ORDER BY id ASC')
+        query = (
+            'SELECT * FROM states WHERE name IS NOT NULL AND' +
+            ' LEFT(CAST(name AS BINARY), 1) = "N" ORDER BY states.id ASC;'
+        )
+        cursor.execute(query)
         results = cursor.fetchall()
         for result in results:
             print(result)
