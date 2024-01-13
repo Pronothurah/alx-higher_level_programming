@@ -1,21 +1,25 @@
 #!/usr/bin/python3
-"""Script that lists all states from a database"""
+"""
+This module is about listing all states with a name starting
+with N (upper N) from the database hbtn_0e_0_usa
+"""
 import sys
 import MySQLdb
 
-
 if __name__ == "__main__":
-    if len(sys.argv) >= 4:
-        db_connection = MySQLdb.connect(
-            host='localhost',
+    args = sys.argv[1:4]
+    if len(args) == 3:
+        db = MySQLdb.connect(
+            host="localhost",
             port=3306,
-            user=sys.argv[1],
-            passwd=sys.argv[2],
-            db=sys.argv[3]
+            user=args[0],
+            password=args[1],
+            database=args[2]
         )
-        cursor = db_connection.cursor()
-        cursor.execute("SELECT * FROM states ORDER BY states.id ASC")
-        for data in cursor.fetchall():
+        cur = db.cursor()
+        cur.execute("SELECT * FROM states ORDER BY states.id ASC")
+        for data in cur.fetchall():
             if (str(data[1]).startswith('N')):
                 print(data)
-        db_connection.close()
+        cur.close()
+        db.close()
