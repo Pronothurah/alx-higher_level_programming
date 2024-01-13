@@ -14,8 +14,8 @@ if __name__ == "__main__":
             db=sys.argv[3]
         )
         cursor = db_connection.cursor()
-        cursor.execute("SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC")
-        results = cursor.fetchall()
-        for result in results:
-            print(result)
+        cursor.execute("SELECT * FROM states ORDER BY states.id ASC")
+        for data in cursor.fetchall():
+            if (str(data[1]).startswith('N')):
+                print(data)
         db_connection.close()
