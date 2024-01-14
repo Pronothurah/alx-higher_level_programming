@@ -1,36 +1,24 @@
 #!/usr/bin/python3
-'''Prints all City objects from the database.
+'''Prints all City objects and their State in a database.
 '''
 import sys
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship
 from model_state import Base, State
 from model_city import City
 
 if __name__ == '__main__':
-    if len(sys.argv) == 4:
+    if len(sys.argv) >= 4:
         user = sys.argv[1]
         pword = sys.argv[2]
         db_name = sys.argv[3]
-
-        DATABASE_URL = f"mysql://{user}:{pword}@localhost:3306/{db_name}"
+        DATABASE_URL = 'mysql://{}:{}@localhost:3306/{}'.format(
+            user, pword, db_name
+        )
         engine = create_engine(DATABASE_URL)
+        State.cities = relationship('City', back_populates='state')
         Base.metadata.create_all(engine)
-
-        # Create a session
-        Session = sessionmaker(bind=engine)
-        session = Session()
-
-        try:
-            # Query all City objects and print the results
-            cities = session.query(City).order_by(City.id).all()
-            for city in cities:
-                print('{}: ({}) {}'.format(
-                    city.state.name, city.id, city.name))
-        except Exception as e:
-            print(f'Error: {e}')
-        finally:
-            session.close()
-    else:
-        print('Usage: {} <username> <password> <database_name>'.format(
-            sys.argv[0]))
+        session = sessionmaker(bind=engine)()
+        result = session.query(City).order_by(City.id.asc()).all()
+        for row in result:
+            print('{}: ({}) {}'.format(row.state.name, row.id, row.name))
