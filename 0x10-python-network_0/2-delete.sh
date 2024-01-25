@@ -1,3 +1,3 @@
 #!/bin/bash
-# Sends a DELETE HTTP request to a URL
-curl -s -X DELETE "$1"
+# displays all HTTP methods the server will accept.
+curl -sI -X OPTIONS "$1" | grep -i allow | cut -d ' ' -f2-
