@@ -12,7 +12,8 @@ if __name__ == '__main__':
 
         try:
             response = requests.get(url)
-            response.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
+            # Raise an HTTPError for bad responses (4xx and 5xx)
+            response.raise_for_status()
 
             commits = response.json()[:10]
             for commit in commits:
