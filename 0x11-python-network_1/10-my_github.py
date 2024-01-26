@@ -3,18 +3,25 @@
 import requests
 import sys
 
-if len(sys.argv) != 3:
-    sys.exit()
 
-username = sys.argv[1]
-token = sys.argv[2]
+if __name__ == '__main__':
+    if len(sys.argv) > 2:
+        username = sys.argv[1]
+        token = sys.argv[2]
+        url = 'https://api.github.com/user'
 
-url = 'https://api.github.com/user'
+        req_headers = {
+            'Accept': 'application/vnd.github.v3+json',
+            'Username': username,
+            'Authorization': 'token {}'.format(password),
+        }
+        response = requests.get(url, headers=req_headers)
 
-response = requests.get(url, auth=(username, token))
-
-try:
-    data = response.json()
-    print(data.get('id', 'None'))
-except ValueError:
-    print('None')
+        try:
+            data = response.json()
+            if data['login'] == username:
+                print(data['id'])
+            else:
+                print('None')
+        except Exception:
+            print('None')
