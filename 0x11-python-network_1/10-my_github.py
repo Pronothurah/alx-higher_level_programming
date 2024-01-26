@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Prints the GitHub id of a user."""
 import requests
 import sys
 

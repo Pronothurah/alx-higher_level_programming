@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Retrieves the last 10 commits of a repository."""
 import requests
 import sys
 
