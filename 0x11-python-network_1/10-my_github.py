@@ -13,15 +13,15 @@ if __name__ == '__main__':
         req_headers = {
             'Accept': 'application/vnd.github.v3+json',
             'Username': username,
-            'Authorization': 'token {}'.format(password),
+            'Authorization': 'token {}'.format(token),
         }
         response = requests.get(url, headers=req_headers)
 
-        try:
-            data = response.json()
-            if data['login'] == username:
-                print(data['id'])
+        if response.status_code == 200:
+            user = response.json()
+            if user['login'] == username:
+                print(user['id'])
             else:
                 print('None')
-        except Exception:
+        else:
             print('None')
