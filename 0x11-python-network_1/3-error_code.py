@@ -11,4 +11,4 @@ if len(sys.argv) > 1:
             body = response.read()
             print(body.decode('utf-8'))
     except urllib.error.HTTPError as e:
-        print("Error code:", e.code)
+        print("Error code: {}".format(e.code))
